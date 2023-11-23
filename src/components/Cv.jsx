@@ -19,7 +19,7 @@ export default function Cv() {
       
         <Row>
         
-          <Col span={4}>
+          <Col span={6}>
             {" "}
             <Image
               width={200}
@@ -28,7 +28,7 @@ export default function Cv() {
               style={{borderRadius:'10px'}}
             />{" "}
           </Col>
-          <Col span={19} className="part">
+          <Col span={16} className="part">
             <Title level={5} style={{backgroundColor:useMemo(() => (typeof Color === 'string' ? Color : Color.toHexString()), [Color])}}>Introductions <br/></Title>
             <Typography.Text style={{color:useMemo(() => (typeof Color === 'string' ? Color : Color.toHexString()), [Color])}}>lorem hjgk fgbrgvjebhvk gsrgvjnvkjdb ggjnlvkj fvkajfbaerkvbjnl gksjgnlekjrgtbl fgkljbglaektgbjlg lkgjbjlkgjb lkgjblkgj lkjbnfkljv gkljbglkafj gkjbnblkbaflkvj lkjblfkjf gjkb ,kjb rgerjkgnjk b  rfvdf</Typography.Text>
           </Col>

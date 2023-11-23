@@ -1,11 +1,5 @@
 .CV{
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-    margin-left: 150px;
     background-color: #ccc;
-    width: 80%;
     border-radius: 10px;
 }
 .part{

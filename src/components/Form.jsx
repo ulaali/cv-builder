@@ -55,26 +55,107 @@ export default function FormDialog() {
           <>
             <Row>
               <Col span={9}>
-                <Form style={{marginLeft:'50px',marginTop:'180px'}}>
+                <Form style={{ marginLeft: "50px", marginTop: "180px" }}>
                   <Title level={1}> Please fill out this form</Title>
                   <Space direction="vertical">
-                    <Input placeholder="Name..." allowClear errorActiveShadow style={{width:'150%'}}></Input>
+                    <Input
+                      placeholder="Name..."
+                      allowClear
+                      status={'error' &&errors.user_Name}
+                      style={{ width: "150%" }}
+                      name="user_Name"
+                      margin="dense"
+                      id="user_Name"
+                      type="text"
+                      value={values.user_Name}
+                      onChange={handleChange}
+                      error={errors.user_Name && touched.user_Name}
+                    ></Input>
 
-                    <Input placeholder="Email..." allowClear style={{width:'150%'}}></Input>
+                    <Input
+                      placeholder="Email..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="Email"
+                      margin="dense"
+                      id="Email"
+                      type="email"
+                      value={values.Email}
+                      onChange={handleChange}
+                      error={errors.Email && touched.Email}
+                      helperText={errors.Email}
+                    ></Input>
 
-                    <Input placeholder="Phone Number..." allowClear style={{width:'150%'}}></Input>
+                    <Input
+                      placeholder="Phone Number..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="Phone"
+                      margin="dense"
+                      id="Phone"
+                      type="number"
+                      value={values.Phone}
+                      onChange={handleChange}
+                      error={errors.Phone && touched.Phone}
+                      helperText={errors.Phone}
+                    ></Input>
 
-                    <Input placeholder="Education..." allowClear style={{width:'150%'}}></Input>
+                    <Input
+                      placeholder="Education..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="Education"
+                      margin="dense"
+                      id="Education"
+                      type="text"
+                      value={values.Education}
+                      onChange={handleChange}
+                      error={errors.Education && touched.Education}
+                      helperText={errors.Education}
+                    ></Input>
 
-                    <Input placeholder="Experiences..." allowClear style={{width:'150%'}}></Input>
+                    <Input
+                      placeholder="Experiences..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="Experiences"
+                      margin="dense"
+                      id="Experiences"
+                      type="text"
+                      value={values.Experiences}
+                      onChange={handleChange}
+                      error={errors.Experiences && touched.Experiences}
+                      helperText={errors.Experiences}
+                    ></Input>
 
-                    <TextArea placeholder="Skills..." allowClear style={{width:'150%'}}></TextArea>
+                    <TextArea
+                      placeholder="Skills..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="Skills"
+                      margin="dense"
+                      id="Skills"
+                      type="text"
+                      value={values.Skills}
+                      onChange={handleChange}
+                      error={errors.Skills && touched.Skills}
+                      helperText={errors.Skills}
+                    ></TextArea>
 
                     <TextArea
                       placeholder="About Yourself..."
                       allowClear
-                      style={{width:'150%'}}
-                    ></TextArea><b/>
+                      style={{ width: "150%" }}
+                      name="Intro"
+                      margin="dense"
+                      id="Intro"
+                      type="text"
+                      value={values.Intro}
+                      onChange={handleChange}
+                      error={errors.Intro && touched.Intro}
+                      helperText={errors.Intro}
+                    ></TextArea>
+                    <b />
                     <Button type="primary">Download CV here!</Button>
                   </Space>
                 </Form>

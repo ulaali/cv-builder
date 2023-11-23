@@ -11,15 +11,12 @@ const validationSchema = Yup.object().shape({
     .required("this feild is required")
     .min(2, "too short")
     .max(20, "too long"),
-  Email: Yup.string()
-    .required("this feild is required")
-    .min(6, "too short")
-    .max(20, "too long"),
+  Email: Yup.string().email().required("this feild is required"),
   Phone: Yup.number().required("this feild is required"),
   Experiences: Yup.string()
     .required("this feild is required")
-    .min(20, "")
-    .max(200, "too long"),
+    .min(20, "write more")
+    .max(100, "too long"),
   Education: Yup.string()
     .required("this feild is required")
     .min(20, "")
@@ -34,7 +31,7 @@ const validationSchema = Yup.object().shape({
     .max(200, "too long"),
   Intro: Yup.string()
     .required("this feild is required")
-    .min(50, "")
+    .min(20, "")
     .max(300, "too long"),
 });
 
@@ -43,8 +40,14 @@ export default function FormDialog() {
     <div>
       <Formik
         initialValues={{
-          Name: "",
-          Password: "",
+          user_Name: "",
+          Experiences: "",
+          Cerifications: "",
+          Email: "",
+          Phone: "",
+          Intro: "",
+          Education: "",
+          Skills: "",
         }}
         onSubmit={(values) => {
           console.log(values);
@@ -61,7 +64,6 @@ export default function FormDialog() {
                     <Input
                       placeholder="Name..."
                       allowClear
-                      status={'error' &&errors.user_Name}
                       style={{ width: "150%" }}
                       name="user_Name"
                       margin="dense"
@@ -69,7 +71,6 @@ export default function FormDialog() {
                       type="text"
                       value={values.user_Name}
                       onChange={handleChange}
-                      error={errors.user_Name && touched.user_Name}
                     ></Input>
 
                     <Input
@@ -82,8 +83,6 @@ export default function FormDialog() {
                       type="email"
                       value={values.Email}
                       onChange={handleChange}
-                      error={errors.Email && touched.Email}
-                      helperText={errors.Email}
                     ></Input>
 
                     <Input
@@ -96,8 +95,6 @@ export default function FormDialog() {
                       type="number"
                       value={values.Phone}
                       onChange={handleChange}
-                      error={errors.Phone && touched.Phone}
-                      helperText={errors.Phone}
                     ></Input>
 
                     <Input
@@ -110,8 +107,6 @@ export default function FormDialog() {
                       type="text"
                       value={values.Education}
                       onChange={handleChange}
-                      error={errors.Education && touched.Education}
-                      helperText={errors.Education}
                     ></Input>
 
                     <Input
@@ -124,8 +119,6 @@ export default function FormDialog() {
                       type="text"
                       value={values.Experiences}
                       onChange={handleChange}
-                      error={errors.Experiences && touched.Experiences}
-                      helperText={errors.Experiences}
                     ></Input>
 
                     <TextArea
@@ -138,8 +131,17 @@ export default function FormDialog() {
                       type="text"
                       value={values.Skills}
                       onChange={handleChange}
-                      error={errors.Skills && touched.Skills}
-                      helperText={errors.Skills}
+                    ></TextArea>
+                    <TextArea
+                      placeholder="Certifications..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="Cerifications"
+                      margin="dense"
+                      id="Cerifications"
+                      type="text"
+                      value={values.Cerifications}
+                      onChange={handleChange}
                     ></TextArea>
 
                     <TextArea
@@ -152,17 +154,27 @@ export default function FormDialog() {
                       type="text"
                       value={values.Intro}
                       onChange={handleChange}
-                      error={errors.Intro && touched.Intro}
-                      helperText={errors.Intro}
+                      onError={() => errors.Intro}
                     ></TextArea>
                     <b />
-                    <Button type="primary">Download CV here!</Button>
+                    <Button htmlType="submit" type="primary">
+                      Download CV here!
+                    </Button>
                   </Space>
                 </Form>
               </Col>
               <Col span={14}>
                 <Title>CV Preview</Title>
-                <Cv />
+                <Cv
+                  user_Name={values.user_Name}
+                  Intro={values.Intro}
+                  Skills={values.Skills}
+                  Cerifications={values.Cerifications}
+                  Education={values.Education}
+                  Phone={values.Phone}
+                  Email={values.Email}
+                  Experiences={values.Experiences}
+                />
               </Col>
             </Row>
           </>

@@ -1,9 +1,12 @@
 import * as React from "react";
 import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { Input, Row, Col, Button, Space } from "antd";
+import { Formik } from "formik";
+import { Input, Row, Col, Button, Space, Form} from "antd";
 import Title from "antd/es/typography/Title";
 import Cv from "./Cv";
+import { useState } from "react";
+
+
 
 const { TextArea } = Input;
 const validationSchema = Yup.object().shape({
@@ -35,7 +38,14 @@ const validationSchema = Yup.object().shape({
     .max(300, "too long"),
 });
 
-export default function FormDialog() {
+export default function Formm() {
+  const [Skills, setSkills] = useState([]);
+  const [Skill, setSkill] = useState("");
+
+  const handleAdd = () => {
+    setSkills([...Skills, Skill]);
+    setSkill("");
+  };
   return (
     <div>
       <Formik
@@ -54,7 +64,7 @@ export default function FormDialog() {
         }}
         validationSchema={validationSchema}
       >
-        {({ errors, values, handleChange, touched }) => (
+        {({ errors, values, handleChange }) => (
           <>
             <Row>
               <Col span={9}>
@@ -120,8 +130,7 @@ export default function FormDialog() {
                       value={values.Experiences}
                       onChange={handleChange}
                     ></Input>
-
-                    <TextArea
+                    <Input
                       placeholder="Skills..."
                       allowClear
                       style={{ width: "150%" }}
@@ -129,10 +138,13 @@ export default function FormDialog() {
                       margin="dense"
                       id="Skills"
                       type="text"
-                      value={values.Skills}
-                      onChange={handleChange}
-                    ></TextArea>
-                    <TextArea
+                      value={Skill}
+                      onChange={(e) => setSkill(e.target.value)}
+                    ></Input>
+                    <Button onClick={handleAdd} type="primary">
+                      ADD
+                    </Button>
+                    <Input
                       placeholder="Certifications..."
                       allowClear
                       style={{ width: "150%" }}
@@ -142,7 +154,7 @@ export default function FormDialog() {
                       type="text"
                       value={values.Cerifications}
                       onChange={handleChange}
-                    ></TextArea>
+                    ></Input>
 
                     <TextArea
                       placeholder="About Yourself..."
@@ -156,10 +168,9 @@ export default function FormDialog() {
                       onChange={handleChange}
                       onError={() => errors.Intro}
                     ></TextArea>
-                    <b />
-                    <Button htmlType="submit" type="primary">
-                      Download CV here!
-                    </Button>
+                    
+                    <br />
+                    <Button type="primary">Download Your CV here!</Button>
                   </Space>
                 </Form>
               </Col>
@@ -168,7 +179,7 @@ export default function FormDialog() {
                 <Cv
                   user_Name={values.user_Name}
                   Intro={values.Intro}
-                  Skills={values.Skills}
+                  Skills={Skills}
                   Cerifications={values.Cerifications}
                   Education={values.Education}
                   Phone={values.Phone}

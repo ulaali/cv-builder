@@ -14,6 +14,7 @@ export default function Cv({
   Experiences,
 }) {
   const [Color, setColor] = useState("#1677ff");
+
   return (
     <>
       <ColorPicker
@@ -28,7 +29,7 @@ export default function Cv({
             {" "}
             <Image
               width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              src= "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
               className="part"
               style={{ borderRadius: "10px" }}
             />{" "}
@@ -138,7 +139,14 @@ export default function Cv({
               >
                 Skills And languages
               </Title>
-              <Typography.Text>{Skills}</Typography.Text>
+              <Typography.Text>
+                <ul>
+                  {Skills.map((skill)=>{
+                  return <li>{skill}</li>
+                })}
+                </ul>
+                
+              </Typography.Text>
             </div>
           </Col>
 

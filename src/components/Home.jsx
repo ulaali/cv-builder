@@ -1,7 +1,9 @@
-import React from 'react'
-
+import React from "react";
+import Form from "./Form";
 export default function Home() {
   return (
-    <div></div>
-  )
+    <div>
+      <Form />
+    </div>
+  );
 }

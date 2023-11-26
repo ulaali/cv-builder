@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { Typography, Image, Col, Row, ColorPicker } from "antd";
+import React, { useMemo } from "react";
+import { Typography, Image, Col, Row } from "antd";
 import "./Cv.css";
 
 const { Title } = Typography;
@@ -12,57 +12,21 @@ export default function Cv({
   Phone,
   Email,
   Experiences,
+  Color,
+  image,
+  linkedin,
 }) {
-  const [Color, setColor] = useState("#1677ff");
-
   return (
     <>
-      <ColorPicker
-        value={Color}
-        onChange={(Color) => {
-          setColor(Color);
-        }}
-      />
       <div className="CV">
         <Row>
           <Col span={6}>
-            {" "}
             <Image
               width={200}
-              src= "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              src={image}
               className="part"
               style={{ borderRadius: "10px" }}
-            />{" "}
-          </Col>
-          <Col span={16} className="part">
-            <Title
-              level={5}
-              style={{
-                backgroundColor: useMemo(
-                  () =>
-                    typeof Color === "string" ? Color : Color.toHexString(),
-                  [Color]
-                ),
-              }}
-            >
-              Introductions <br />
-            </Title>
-            <Typography.Text
-              style={{
-                color: useMemo(
-                  () =>
-                    typeof Color === "string" ? Color : Color.toHexString(),
-                  [Color]
-                ),
-              }}
-            >
-              {Intro}
-            </Typography.Text>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="part" span={23}>
-            {" "}
+            />
             <Typography.Title
               style={{
                 backgroundColor: useMemo(
@@ -74,12 +38,6 @@ export default function Cv({
             >
               {user_Name}
             </Typography.Title>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span={12}>
-            <hr />
 
             <div className="part">
               <Title
@@ -124,7 +82,11 @@ export default function Cv({
               >
                 LinkedIn
               </Title>
-              <Typography.Text>LinkedIn</Typography.Text>
+              <Typography.Text>
+                <a href={linkedin} target="_blank">
+                  linkedin account
+                </a>
+              </Typography.Text>
             </div>
             <div className="part">
               <Title
@@ -141,17 +103,37 @@ export default function Cv({
               </Title>
               <Typography.Text>
                 <ul>
-                  {Skills.map((skill)=>{
-                  return <li>{skill}</li>
-                })}
+                  {Skills.map((skill) => {
+                    return <li>{skill}</li>;
+                  })}
                 </ul>
-                
               </Typography.Text>
             </div>
           </Col>
-
-          <Col span={12}>
-            <hr />
+          <Col span={18}>
+            <Title
+              level={2}
+              style={{
+                backgroundColor: useMemo(
+                  () =>
+                    typeof Color === "string" ? Color : Color.toHexString(),
+                  [Color]
+                ),
+              }}
+            >
+              Introductions <br />
+            </Title>
+            <Typography.Text
+              style={{
+                color: useMemo(
+                  () =>
+                    typeof Color === "string" ? Color : Color.toHexString(),
+                  [Color]
+                ),
+              }}
+            >
+              {Intro}
+            </Typography.Text>
 
             <div className="part">
               <Title

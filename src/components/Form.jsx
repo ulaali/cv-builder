@@ -1,12 +1,20 @@
 import * as React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Input, Row, Col, Button, Space, Form} from "antd";
+import {
+  Input,
+  Row,
+  Col,
+  Button,
+  Space,
+  Form,
+  ColorPicker,
+  Typography,
+} from "antd";
 import Title from "antd/es/typography/Title";
 import Cv from "./Cv";
-import { useState } from "react";
-
-
+import { useState, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 const { TextArea } = Input;
 const validationSchema = Yup.object().shape({
@@ -36,14 +44,30 @@ const validationSchema = Yup.object().shape({
     .required("this feild is required")
     .min(20, "")
     .max(300, "too long"),
+  linkedin: Yup.string()
+    .required("this feild is required")
+    .min(20, "")
+    .max(100, "too long"),
 });
 
 export default function Formm() {
   const [Skills, setSkills] = useState([]);
   const [Skill, setSkill] = useState("");
+  const [Color, setColor] = useState("#1677ff");
+  const [image, setImage] = useState();
 
+  const getimage = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+  const refe = useRef();
+  const handleDownload = useReactToPrint({
+    content: () => refe.current,
+    documentTitle: "my-cv",
+  });
   const handleAdd = () => {
-    setSkills([...Skills, Skill]);
+    Skill === ""
+      ? alert("please enter a skill first")
+      : setSkills([...Skills, Skill]);
     setSkill("");
   };
   return (
@@ -58,6 +82,7 @@ export default function Formm() {
           Intro: "",
           Education: "",
           Skills: "",
+          linkedin: "",
         }}
         onSubmit={(values) => {
           console.log(values);
@@ -81,6 +106,7 @@ export default function Formm() {
                       type="text"
                       value={values.user_Name}
                       onChange={handleChange}
+                      required
                     ></Input>
 
                     <Input
@@ -93,6 +119,7 @@ export default function Formm() {
                       type="email"
                       value={values.Email}
                       onChange={handleChange}
+                      required
                     ></Input>
 
                     <Input
@@ -105,8 +132,20 @@ export default function Formm() {
                       type="number"
                       value={values.Phone}
                       onChange={handleChange}
+                      required
                     ></Input>
-
+                    <Input
+                      placeholder="your linkedin account..."
+                      allowClear
+                      style={{ width: "150%" }}
+                      name="linkedin"
+                      margin="dense"
+                      id="linkedin"
+                      type="text"
+                      value={values.linkedin}
+                      onChange={handleChange}
+                      required
+                    ></Input>
                     <Input
                       placeholder="Education..."
                       allowClear
@@ -117,6 +156,7 @@ export default function Formm() {
                       type="text"
                       value={values.Education}
                       onChange={handleChange}
+                      required
                     ></Input>
 
                     <Input
@@ -129,6 +169,7 @@ export default function Formm() {
                       type="text"
                       value={values.Experiences}
                       onChange={handleChange}
+                      required
                     ></Input>
                     <Input
                       placeholder="Skills..."
@@ -154,6 +195,7 @@ export default function Formm() {
                       type="text"
                       value={values.Cerifications}
                       onChange={handleChange}
+                      required
                     ></Input>
 
                     <TextArea
@@ -167,25 +209,45 @@ export default function Formm() {
                       value={values.Intro}
                       onChange={handleChange}
                       onError={() => errors.Intro}
+                      required
                     ></TextArea>
-                    
-                    <br />
-                    <Button type="primary">Download Your CV here!</Button>
+                    <Input type="file" onChange={getimage} required></Input>
+                    <Row>
+                      <Typography.Text>choose a color : </Typography.Text>
+                      <ColorPicker
+                        value={Color}
+                        onChange={(Color) => {
+                          setColor(Color);
+                        }}
+                      />
+                    </Row>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      onClick={handleDownload}
+                    >
+                      Download Your CV here!
+                    </Button>
                   </Space>
                 </Form>
               </Col>
               <Col span={14}>
                 <Title>CV Preview</Title>
-                <Cv
-                  user_Name={values.user_Name}
-                  Intro={values.Intro}
-                  Skills={Skills}
-                  Cerifications={values.Cerifications}
-                  Education={values.Education}
-                  Phone={values.Phone}
-                  Email={values.Email}
-                  Experiences={values.Experiences}
-                />
+                <div ref={refe}>
+                  <Cv
+                    user_Name={values.user_Name}
+                    Intro={values.Intro}
+                    Skills={Skills}
+                    Cerifications={values.Cerifications}
+                    Education={values.Education}
+                    Phone={values.Phone}
+                    Email={values.Email}
+                    Experiences={values.Experiences}
+                    Color={Color}
+                    image={image}
+                    linkedin={values.linkedin}
+                  />
+                </div>
               </Col>
             </Row>
           </>

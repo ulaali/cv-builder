@@ -1,11 +1,9 @@
 import './App.css';
-import Cv from './components/Cv';
-import Form from './components/Form';
+import Home from './components/Home';
 function App() {
   return (
     <div className="App">
-      {/* <Cv/> */}
-      <Form/>
+      <Home/>
     </div>
   );
 }
